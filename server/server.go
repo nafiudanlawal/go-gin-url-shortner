@@ -4,17 +4,11 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-	"url-shortening-service/database"
 	"url-shortening-service/utils"
-
 	"github.com/gin-gonic/gin"
 )
 
 func Run(){
-
-	database.ConnectToPostgresDB()
-	
-
 	router := gin.New()
 	router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
 		// custom format
