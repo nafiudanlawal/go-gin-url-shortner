@@ -10,7 +10,7 @@ import (
 
 
 
-func ConnectToPostgresDB(){
+func connectToPostgresDB() *gorm.DB{
   var host, username, password, dbName, port = GetPostgresDbParameters()
 
   dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s sslmode=disable", 
@@ -22,11 +22,10 @@ func ConnectToPostgresDB(){
   database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
   
   if err != nil {
-    log.Fatal("failed to connect database server\n", err)
+    log.Fatal("failed to connect database server\n")
   }
 
   _ = database.Exec(fmt.Sprintf("CREATE DATABASE %s;", dbName))
-  log.Println("CREATE complete")
   dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", 
     host, 
     username, 
@@ -36,9 +35,9 @@ func ConnectToPostgresDB(){
   )
   dbInstance, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
   if err != nil {
-    log.Fatal("failed to connect database\n", err)
+    log.Fatal("failed to connect database\n")
   }
-  DbConnection = dbInstance
+  return dbInstance
 }
 
 

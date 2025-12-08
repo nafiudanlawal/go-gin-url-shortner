@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	database.ConnectToPostgresDB()
+	database.ConnectToDB()
 	server.Run()
 }

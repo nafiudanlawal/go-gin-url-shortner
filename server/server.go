@@ -12,7 +12,7 @@ func Run(){
 	router := gin.New()
 	router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
 		// custom format
-		return fmt.Sprintf("%s | %10s |%s%-5s%s| %s%5d%s | %s |  %8s | %s | %s | %s\n",
+		return fmt.Sprintf("%s | %10s |%s%-5s%s| %s%5d%s | %8s |  %18s | %s | %s | %s\n",
 			param.TimeStamp.Format(time.RFC3339),
 			param.ClientIP,
 			param.MethodColor(),

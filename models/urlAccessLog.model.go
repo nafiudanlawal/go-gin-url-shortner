@@ -2,7 +2,7 @@ package model
 
 import "gorm.io/gorm"
 
-type AccessLog struct{
+type UrlAccessLog struct{
 	gorm.Model
 	ShortenUrlID uint // used as gorm foreign key
 	Location string
