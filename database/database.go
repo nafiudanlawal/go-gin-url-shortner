@@ -2,7 +2,6 @@ package database
 
 import (
 	"url-shortening-service/models"
-
 	"gorm.io/gorm"
 )
 

@@ -4,7 +4,8 @@ import "gorm.io/gorm"
 
 type UrlAccessLog struct{
 	gorm.Model
-	ShortenUrlID uint // used as gorm foreign key
-	Location string
-	OriginIp string
+	ID         		uint64 `gorm:"primaryKey"`
+	ShortenUrlID 	uint64 `gorm:"not null"`
+	Location 		string `gorm:"size:256"`
+	OriginIp 		string `gorm:"size:256"`
 }

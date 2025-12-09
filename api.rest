@@ -1,0 +1,26 @@
+@BaseUrl=http://localhost:8090
+
+###
+GET {{BaseUrl}}/shorten/
+
+###
+GET {{BaseUrl}}/shorten/00943
+
+###
+GET {{BaseUrl}}/shorten/00943/stats
+
+
+###
+POST {{BaseUrl}}/shorten/
+Accept: application/json
+Content-Type: application/json
+
+{
+	"url": "http://google12.com"
+}
+
+###
+PATCH  {{BaseUrl}}/shorten/1
+
+###
+DELETE  {{BaseUrl}}/shorten/1

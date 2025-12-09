@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+	"url-shortening-service/routes"
 	"url-shortening-service/utils"
+
 	"github.com/gin-gonic/gin"
 )
-var Router *gin.Engine
+
 func Run(){
 	Router := gin.New()
 	Router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
@@ -29,16 +31,11 @@ func Run(){
 		)
 	}))
 	Router.Use(gin.Recovery())
-	Router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
 
-	fmt.Printf(":%s", utils.GetEnvVars()["PORT"])
+	routes.AddRoutes(&Router.RouterGroup)
 
 	s := &http.Server{
-    Addr:           fmt.Sprintf(":%s", utils.GetEnvVars()["PORT"]),
+    Addr:           fmt.Sprintf("127.0.0.1:%s", utils.GetEnvVars()["PORT"]),
     Handler:        Router,
     ReadTimeout:    10 * time.Second,
     WriteTimeout:   10 * time.Second,
