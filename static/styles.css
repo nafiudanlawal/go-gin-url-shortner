@@ -1,0 +1,43 @@
+
+
+body{
+	width: 100%;
+	background-color: aliceblue;
+	margin: 0;
+	min-height: 50vh;
+}
+
+.hidden{
+	display: none;
+}
+.container{
+	margin: 15px auto ;
+	padding: 10px 0;
+}
+
+.centered{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+.flex-row{
+	display: flex;
+	flex-direction: row;
+}
+.flex-column{
+	display: flex;
+	flex-direction: column;
+}
+a.button{
+	padding: 5px 1rem;
+	margin: 3px 0.5rem;
+	background-color:brown;
+	border-radius: 2rem;
+	color: #eee;
+	font-size: large;
+	text-decoration: none;
+	cursor: pointer;
+}

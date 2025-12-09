@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{ .title }} | Url Shortner</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./static/styles.css">
+</head>
+
+<body>
+	<!--[if lt IE 7]>
+			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+	<div id="loading-block" class="centered container">
+		<img id="loading-img" src="/static/200.gif" alt="loading" title="laoding" />
+	</div>
+	<div id="loaded-block" class="hidden">
+		<h2>Your url is </h2>
+		<div class="centered container flex-row">
+			<h5>Click here to goto the actual link</h5>
+			<a class="button" id="navigate-link" href="">On you way</a>
+		</div>
+	</div>
+
+
+
+	<span class="hidden" id="url-code">{{ .code }}</span>
+	<script>
+		addEventListener("DOMContentLoaded", (event) => {
+			const loadingBlock = document.getElementById("loading-block")
+			const loadedBlock = document.getElementById("loaded-block")
+			const code = document.getElementById("url-code")
+			const link = document.getElementById("navigate-link")
+
+			fetch(`/shorten/${code.innerText}`)
+				.then(res => res.json())
+				.then(res => {
+					link.href = res["Url"]
+					link.innerHTML = res["Url"]
+					loadingBlock.style.display = "none";
+					loadedBlock.style.display = "block";
+				})
+
+		})
+	</script>
+</body>
+
+</html>
