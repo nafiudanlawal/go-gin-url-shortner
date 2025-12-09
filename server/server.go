@@ -7,10 +7,10 @@ import (
 	"url-shortening-service/utils"
 	"github.com/gin-gonic/gin"
 )
-
+var Router *gin.Engine
 func Run(){
-	router := gin.New()
-	router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+	Router := gin.New()
+	Router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
 		// custom format
 		return fmt.Sprintf("%s | %10s |%s%-5s%s| %s%5d%s | %8s |  %18s | %s | %s | %s\n",
 			param.TimeStamp.Format(time.RFC3339),
@@ -28,8 +28,8 @@ func Run(){
 			param.ErrorMessage,
 		)
 	}))
-	router.Use(gin.Recovery())
-	router.GET("/ping", func(c *gin.Context) {
+	Router.Use(gin.Recovery())
+	Router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
@@ -39,7 +39,7 @@ func Run(){
 
 	s := &http.Server{
     Addr:           fmt.Sprintf(":%s", utils.GetEnvVars()["PORT"]),
-    Handler:        router,
+    Handler:        Router,
     ReadTimeout:    10 * time.Second,
     WriteTimeout:   10 * time.Second,
     MaxHeaderBytes: 1 << 20,
