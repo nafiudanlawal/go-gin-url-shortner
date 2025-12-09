@@ -20,7 +20,11 @@ Content-Type: application/json
 }
 
 ###
-PATCH  {{BaseUrl}}/shorten/1
+PATCH  {{BaseUrl}}/shorten/00943
+
+{
+	"url": "http://google1200.com"
+}
 
 ###
 DELETE  {{BaseUrl}}/shorten/1

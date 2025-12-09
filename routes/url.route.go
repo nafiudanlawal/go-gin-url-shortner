@@ -61,7 +61,7 @@ func AddRoutes(rg *gin.RouterGroup) {
 		c.JSON(http.StatusOK, result)
 	})
 
-	shortUrlRoutes.PATCH("/:shortCode", func(c *gin.Context) {
+	shortUrlRoutes.PUT("/:shortCode", func(c *gin.Context) {
 		shortCode := c.Params.ByName("shortCode")
 		var data dtos.UpdateUrl
 		// validate input
