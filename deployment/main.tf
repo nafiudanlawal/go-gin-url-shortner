@@ -1,13 +1,16 @@
 terraform {
-  required-providers {
-    source  = "hashicorp/aws"
-    version = "~> 5.92"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.92"
+    }
   }
-  required_version = ">= 1.2.0"
+
+  required_version = ">= 1.2"
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.default-region
 }
 
 data "aws_ami" "ubuntu" {
@@ -23,8 +26,9 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = var.instance-type
 
+  key_name = var.ssh-keypair-name
   tags = {
     Name = "learn-terraform"
   }
