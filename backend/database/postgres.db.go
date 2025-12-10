@@ -2,23 +2,34 @@ package database
 
 import (
 	"fmt"
-	"log"
-	
 	"gorm.io/driver/postgres"
-	"url-shortening-service/utils"
 	"gorm.io/gorm"
-	
+	"gorm.io/gorm/logger"
+	"log"
+	"os"
+	"time"
+	"url-shortening-service/utils"
 )
 
 func connectToPostgresDB() *gorm.DB {
 	var host, username, password, dbName, port = GetPostgresDbParameters()
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold:             time.Second, // Slow SQL threshold
+			LogLevel:                  logger.Warn, // Log level
+			IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
+			ParameterizedQueries:      true,
+			Colorful:                  true, // Disable color
+		},
+	)
 	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s sslmode=disable",
 		host,
 		username,
 		password,
 		port,
 	)
-	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: newLogger})
 
 	if err != nil {
 		log.Fatal("failed to connect database server\n")

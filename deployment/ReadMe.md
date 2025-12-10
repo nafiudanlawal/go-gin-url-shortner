@@ -19,4 +19,5 @@ terraform apply
 ```
 
 ## Infractructure Architecture
-![Architecture Diagram](architecture.png)
+![Architecture Diagram](./docs/architecture.png)
+[More](https://drive.google.com/file/d/1O4gM655fovAN2ea8A7eXPku7Ra6QKp4T/view?usp=sharing)

@@ -39,7 +39,7 @@ func AddRoutes(rg *gin.RouterGroup) {
 		shortCode := c.Params.ByName("shortCode")
 		result, err := service.GetUrlByShortenUrl(shortCode)
 		if err != nil {
-			c.JSON(http.StatusNotFound, gin.H{})
+			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 			return
 		}
 		_, err = service.CreateStat(result.ID, "unknown", c.Request.RemoteAddr)
