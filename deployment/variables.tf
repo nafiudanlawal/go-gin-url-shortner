@@ -22,3 +22,35 @@ variable "default-region" {
   description = "default aws region"
   default     = "us-east-1"
 }
+
+variable "project-name" {
+  default = "url-shortner"
+}
+
+variable "db-name" {
+  default = "main-db"
+}
+
+variable "db-engine-name" {
+  default = "aurora-postgresql"
+}
+
+variable "db-engine-version" {
+  default = "17.4"
+}
+
+variable "environment" {
+  default = "dev"
+}
+
+variable "cluster_instance_class" {
+  default = "db.serverless"
+}
+
+locals {
+  tags = {
+    Terraform   = "true"
+    Environment = var.environment
+    Project     = var.project-name
+  }
+}

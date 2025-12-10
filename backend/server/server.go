@@ -30,13 +30,13 @@ func Run() {
 		)
 	}))
 	router.Use(gin.Recovery())
-	router.LoadHTMLFiles("static/index.tmpl")
+	router.LoadHTMLFiles("static/index.tmpl", "static/not-found.tmpl")
 	router.Static("/static", "./static")
 
 	routes.AddRoutes(&router.RouterGroup)
 
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{})
+	router.NoRoute(func(c *gin.Context) {
+		c.HTML(http.StatusOK, "not-found.tmpl", gin.H{})
 	})
 	router.GET("/:code", func(c *gin.Context) {
 		code := c.Params.ByName("code")

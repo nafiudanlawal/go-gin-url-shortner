@@ -8,7 +8,7 @@ body{
 }
 
 .hidden{
-	display: none;
+	display: none!important;
 }
 .container{
 	margin: 15px auto ;
@@ -18,10 +18,10 @@ body{
 .centered{
 	width: 100%;
 	height: 100%;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	align-content: center;
+	text-align: center;
 }
 .flex-row{
 	display: flex;

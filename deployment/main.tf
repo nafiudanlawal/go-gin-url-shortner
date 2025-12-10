@@ -1,13 +1,4 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.92"
-    }
-  }
 
-  required_version = ">= 1.2"
-}
 
 provider "aws" {
   region = var.default-region
@@ -25,11 +16,20 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "app_server" {
+  depends_on    = [module.vpc]
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance-type
 
+  # Networking
+  vpc_security_group_ids = [module.vpc.default_security_group_id]
+  subnet_id              = module.vpc.private_subnets[0]
+
+  # Security
   key_name = var.ssh-keypair-name
+
+  # Metadata
   tags = {
-    Name = "learn-terraform"
+    Name    = "learn-terraform"
+    Project = var.project-name
   }
 }
