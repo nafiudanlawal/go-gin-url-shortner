@@ -1,4 +1,14 @@
-output "instance_hostname" {
-  description = "Private DNS name of the EC2 instance."
-  value       = aws_instance.app_server.private_dns
+output "vpc_id" {
+  description = "VPC created id"
+  value       = module.vpc.vpc_id
+}
+
+output "ecr-arn" {
+  description = "arn of created ecr repo"
+  value = module.ecr.repository_arn
+}
+
+output "ecr-repository_url" {
+  description = "arn of created ecr repo"
+  value = module.ecr.repository_url
 }

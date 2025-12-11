@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: URL Shortener API
+  version: 1.0.0
+  description: REST API for creating, managing, and tracking shortened URLs.
+
+servers:
+  - url: http://localhost:8090
+
+paths:
+  /shorten/:
+    get:
+      summary: Get all shortened URLs
+      responses:
+        "200":
+          description: List of shortened URLs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ShortUrl"
+
+    post:
+      summary: Create a new shortened URL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  example: "http://google12.com"
+      responses:
+        "201":
+          description: Created shortened URL record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortUrl"
+
+  /shorten/{code}:
+    get:
+      summary: Get a shortened URL by shortcode
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Shortened URL record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortUrl"
+
+    patch:
+      summary: Update destination URL for a shortcode
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  example: "http://google1200.com"
+      responses:
+        "200":
+          description: Updated shortened URL record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortUrl"
+
+    delete:
+      summary: Delete a shortened URL by ID
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "204":
+          description: Deleted successfully
+
+  /shorten/{code}/stats:
+    get:
+      summary: Get statistics for a shortened URL
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Stats for the shortened URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShortUrlWithStats"
+
+components:
+  schemas:
+    UrlAccessLog:
+      type: object
+      properties:
+        CreatedAt:
+          type: string
+          format: date-time
+        UpdatedAt:
+          type: string
+          format: date-time
+        DeletedAt:
+          type: string
+          nullable: true
+        ID:
+          type: integer
+        ShortenUrlID:
+          type: integer
+        Location:
+          type: string
+        OriginIp:
+          type: string
+
+    ShortUrl:
+      type: object
+      properties:
+        CreatedAt:
+          type: string
+          format: date-time
+        UpdatedAt:
+          type: string
+          format: date-time
+        DeletedAt:
+          type: string
+          nullable: true
+        ID:
+          type: integer
+        Url:
+          type: string
+          format: uri
+        ShortCode:
+          type: string
+        UrlAccessLogs:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/UrlAccessLog"
+
+    ShortUrlWithStats:
+      allOf:
+        - $ref: "#/components/schemas/ShortUrl"

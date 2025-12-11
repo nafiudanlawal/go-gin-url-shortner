@@ -6,7 +6,7 @@ data "aws_rds_engine_version" "postgresql" {
 module "cluster" {
   source = "terraform-aws-modules/rds-aurora/aws"
   # cluster config
-  name                   = var.db-name
+  name                   = "${var.project-name}-cluster"
   database_name          = var.db-name
   engine                 = data.aws_rds_engine_version.postgresql.engine
   engine_version         = data.aws_rds_engine_version.postgresql.version
@@ -15,7 +15,7 @@ module "cluster" {
     one = {}
   }
 
-  vpc_id               = module.vpc.default_vpc_id
+  vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.database_subnet_group_name
   availability_zones   = module.vpc.azs
 

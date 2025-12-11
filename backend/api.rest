@@ -4,10 +4,10 @@
 GET {{BaseUrl}}/shorten/
 
 ###
-GET {{BaseUrl}}/shorten/00943
+GET {{BaseUrl}}/shorten/2d003
 
 ###
-GET {{BaseUrl}}/shorten/00943/stats
+GET {{BaseUrl}}/shorten/2d003/stats
 
 
 ###
@@ -20,10 +20,10 @@ Content-Type: application/json
 }
 
 ###
-PATCH  {{BaseUrl}}/shorten/00943
+PUT  {{BaseUrl}}/shorten/00943
 
 {
-	"url": "http://google1200.com"
+	"url": "http://google1220.com"
 }
 
 ###

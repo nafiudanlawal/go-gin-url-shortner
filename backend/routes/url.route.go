@@ -70,11 +70,16 @@ func AddRoutes(rg *gin.RouterGroup) {
 			return
 		}
 
-		result, err := service.UpdateUrlByShortenUrl(shortCode, data.Url)
+		affected, err := service.UpdateUrlByShortenUrl(shortCode, data.Url)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{})
 			return
 		}
+		if affected == 0{
+			c.JSON(http.StatusNotFound, gin.H{})
+			return
+		}
+		result, _ := service.GetUrlByShortenUrl(shortCode)
 		c.JSON(http.StatusOK, result)
 	})
 

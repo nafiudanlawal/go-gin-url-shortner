@@ -47,6 +47,11 @@ variable "cluster_instance_class" {
   default = "db.serverless"
 }
 
+variable "api_domain_name" {
+	default = "aiklearning.click"
+  
+}
+
 locals {
   tags = {
     Terraform   = "true"
