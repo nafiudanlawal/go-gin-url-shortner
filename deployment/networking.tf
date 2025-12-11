@@ -2,7 +2,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "6.5.1"
 
-  name = "${var.project-name}-vpc"
+  name = "${var.project_name}-vpc"
   cidr = "10.0.0.0/16"
 
   azs              = ["us-east-1a", "us-east-1b", "us-east-1c"]
@@ -12,9 +12,17 @@ module "vpc" {
 
   enable_dns_hostnames = true
   create_igw           = true # enable internet access for public subnets
-  create_multiple_public_route_tables = false
-  create_multiple_intra_route_tables = false
 
+
+  create_multiple_public_route_tables = false
+  create_multiple_intra_route_tables  = false
+  igw_tags = {
+    Name = "${var.project_name}-igw"
+  }
+
+  default_route_table_tags = {
+    Name = "${var.project_name}-default-subnet"
+  }
   tags = local.tags
 }
 
@@ -34,9 +42,9 @@ module "api_gateway" {
     allow_origins = ["*"]
   }
 
-  description      = "${var.project-name} HTTP API Gateway"
+  description      = "${var.project_name} HTTP API Gateway"
   fail_on_warnings = false
-  name             = "${var.project-name}-api-gw"
+  name             = "${var.project_name}-api-gw"
 
   # Domain Name
   domain_name           = var.api_domain_name

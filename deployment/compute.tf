@@ -1,9 +1,9 @@
 module "lambda_function_container_image" {
-	depends_on = [ module.ecr ]
+	depends_on = [ module.ecr, null_resource.build_and_push ]
   source = "terraform-aws-modules/lambda/aws"
 	version = "~> 8.1.2"
 
-  function_name = "${var.project-name}-backend"
+  function_name = "${var.project_name}-backend"
   description   = "ecr lambda handler"
 
   create_package = false
@@ -31,16 +31,33 @@ module "lambda_function_container_image" {
 
   allowed_triggers = {
     AllowExecutionFromAPIGateway = {
-      service    = "${var.project-name}-apigateway"
+      service    = "${var.project_name}-apigateway"
       source_arn = "${module.api_gateway.api_execution_arn}/*/*"
     }
+  }
+}
+
+
+resource "null_resource" "build_and_push" {
+	depends_on = [ module.ecr ]
+	triggers = {
+    # only rerun if the ecr repo changes.
+    ecr_repo = module.ecr.repository_arn
+  }
+  provisioner "local-exec" {
+    command = <<EOF
+      aws ecr get-login-password --region ${var.default_region} | docker login --username AWS --password-stdin ${module.ecr.repository_url}
+      docker build -t blank.Dockerfile .
+      docker tag blank:latest ${module.ecr.repository_url}:latest
+      docker push ${module.ecr.repository_url}:latest
+    EOF
   }
 }
 
 module "ecr" {
   source = "terraform-aws-modules/ecr/aws"
 
-  repository_name = "${var.project-name}-repo"
+  repository_name = "${var.project_name}-repo"
 
   repository_lifecycle_policy = jsonencode({
     rules = [

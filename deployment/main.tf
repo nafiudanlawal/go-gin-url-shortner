@@ -1,7 +1,7 @@
 
 
 provider "aws" {
-  region = var.default-region
+  region = var.default_region
 }
 
 data "aws_ami" "ubuntu" {

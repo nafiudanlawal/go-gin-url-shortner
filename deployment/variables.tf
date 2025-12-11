@@ -1,41 +1,41 @@
-variable "vpc-name" {
+variable "vpc_name" {
   type        = string
   description = "name of the insfrastructure vpc"
-  default     = "main-vpc"
+  default     = "main_vpc"
 }
 
-variable "ssh-keypair-name" {
+variable "ssh_keypair_name" {
   type        = string
   description = "default ssh keypair"
-  default     = "dev-server"
+  default     = "dev_server"
 }
 
 
-variable "instance-type" {
+variable "instance_type" {
   type        = string
   description = "instance type"
   default     = "t3.micro"
 }
 
-variable "default-region" {
+variable "default_region" {
   type        = string
   description = "default aws region"
   default     = "us-east-1"
 }
 
-variable "project-name" {
+variable "project_name" {
   default = "url-shortner"
 }
 
-variable "db-name" {
-  default = "main-db"
+variable "db_name" {
+  default = "mainDB"
 }
 
-variable "db-engine-name" {
-  default = "aurora-postgresql"
+variable "db_engine_name" {
+  default = "aurora_postgresql"
 }
 
-variable "db-engine-version" {
+variable "db_engine_version" {
   default = "17.4"
 }
 
@@ -52,10 +52,25 @@ variable "api_domain_name" {
   
 }
 
+variable "db_master_password" {
+	sensitive = true
+	default = "postgres_password152"
+  
+}
+
+variable "db_master_username" {
+  sensitive = true
+  default = "postgres"
+}
+
+variable "db_final_snapshot_identifier" {
+  default = "${timestamp()}_${var.project_name}"
+}
+
 locals {
   tags = {
     Terraform   = "true"
     Environment = var.environment
-    Project     = var.project-name
+    Project     = var.project_name
   }
 }

@@ -1,18 +1,27 @@
 data "aws_rds_engine_version" "postgresql" {
-  engine  = var.db-engine-name
-  version = var.db-engine-version
+  engine  = var.db_engine_name
+  version = var.db_engine_version
 }
 
 module "cluster" {
   source = "terraform-aws-modules/rds-aurora/aws"
   # cluster config
-  name                   = "${var.project-name}-cluster"
-  database_name          = var.db-name
+  name                   = "${var.project_name}-cluster"
+  database_name          = var.db_name
   engine                 = data.aws_rds_engine_version.postgresql.engine
   engine_version         = data.aws_rds_engine_version.postgresql.version
   cluster_instance_class = var.cluster_instance_class
+
+  master_username = var.db_master_username
+  master_user_password_rotate_immediately = true
+  master_password_wo = var.db_master_password
+  
+  final_snapshot_identifier = var.db_final_snapshot_identifier
+  
   instances = {
-    one = {}
+    one = {
+		
+	}
   }
 
   vpc_id               = module.vpc.vpc_id
