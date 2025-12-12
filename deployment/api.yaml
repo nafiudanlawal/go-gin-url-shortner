@@ -59,7 +59,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ShortUrl"
 
-    patch:
+    put:
       summary: Update destination URL for a shortcode
       parameters:
         - name: code
@@ -167,3 +167,11 @@ components:
     ShortUrlWithStats:
       allOf:
         - $ref: "#/components/schemas/ShortUrl"
+
+  x-amazon-apigateway-integrations:
+    shorten:
+      type: AWS_PROXY
+      httpMethod: GET
+      uri: "${lambda_function_arn}"
+      payloadFormatVersion: "2.0"
+      connectionType: INTERNET

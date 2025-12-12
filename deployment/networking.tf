@@ -32,8 +32,8 @@ module "api_gateway" {
   version = "~> 6.0.0"
 
   # API
-  body = templatefile("../backend/api.yaml", {
-    example_function_arn = module.lambda_function_container_image.lambda_function_arn
+  body = templatefile("./api.yaml", {
+    lambda_function_arn = module.lambda_function_container_image.lambda_function_arn
   })
 
   cors_configuration = {
@@ -52,12 +52,45 @@ module "api_gateway" {
   create_certificate    = true
 
   # Routes & Integration(s)
-  routes = {
-    "POST /" = {
+  /*routes = {
+    "POST /shorten" = {
       integration = {
         uri                    = module.lambda_function_container_image.lambda_function_arn
-        payload_format_version = "2.0"
-        timeout_milliseconds   = 12000
+        timeout_milliseconds   = var.api_gateway_route_timeout
+      }
+    }
+
+	"GET /shorten" = {
+      integration = {
+        uri                    = module.lambda_function_container_image.lambda_function_arn
+        timeout_milliseconds   = var.api_gateway_route_timeout
+      }
+    }
+	"GET /shorten/{code}" = {
+      integration = {
+        uri                    = module.lambda_function_container_image.lambda_function_arn
+        timeout_milliseconds   = var.api_gateway_route_timeout
+      }
+    }
+
+	"GET /shorten/{code}/stats" = {
+      integration = {
+        uri                    = module.lambda_function_container_image.lambda_function_arn
+        timeout_milliseconds   = var.api_gateway_route_timeout
+      }
+    }
+
+	"PUT /shorten/{code}" = {
+      integration = {
+        uri                    = module.lambda_function_container_image.lambda_function_arn
+        timeout_milliseconds   = var.api_gateway_route_timeout
+      }
+    }
+
+	"DELETE /shorten/{code}" = {
+      integration = {
+        uri                    = module.lambda_function_container_image.lambda_function_arn
+        timeout_milliseconds   = var.api_gateway_route_timeout
       }
     }
 
@@ -85,7 +118,7 @@ module "api_gateway" {
         ]
       }
     }
-  }
+  }*/
 
   # Stage
   stage_access_log_settings = {

@@ -16,7 +16,7 @@ module "cluster" {
   master_user_password_rotate_immediately = true
   master_password_wo = var.db_master_password
   
-  final_snapshot_identifier = var.db_final_snapshot_identifier
+  skip_final_snapshot = true
   
   instances = {
     one = {

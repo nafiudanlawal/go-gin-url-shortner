@@ -32,7 +32,7 @@ variable "db_name" {
 }
 
 variable "db_engine_name" {
-  default = "aurora_postgresql"
+  default = "aurora-postgresql"
 }
 
 variable "db_engine_version" {
@@ -63,9 +63,11 @@ variable "db_master_username" {
   default = "postgres"
 }
 
-variable "db_final_snapshot_identifier" {
-  default = "${timestamp()}_${var.project_name}"
+variable "api_gateway_route_timeout" {
+  type = number
+  default = 1000 # 1 second
 }
+
 
 locals {
   tags = {

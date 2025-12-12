@@ -27,4 +27,4 @@ PUT  {{BaseUrl}}/shorten/00943
 }
 
 ###
-DELETE  {{BaseUrl}}/shorten/1
+DELETE  {{BaseUrl}}/shorten/2d003

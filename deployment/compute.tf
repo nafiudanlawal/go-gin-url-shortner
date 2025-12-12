@@ -1,7 +1,7 @@
 module "lambda_function_container_image" {
-	depends_on = [ module.ecr, null_resource.build_and_push ]
-  source = "terraform-aws-modules/lambda/aws"
-	version = "~> 8.1.2"
+  depends_on = [module.ecr, null_resource.build_and_push]
+  source     = "terraform-aws-modules/lambda/aws"
+  version    = "~> 8.1.2"
 
   function_name = "${var.project_name}-backend"
   description   = "ecr lambda handler"
@@ -13,7 +13,7 @@ module "lambda_function_container_image" {
 
   memory_size = 128
 
-	architectures = ["x86_64"]
+  architectures = ["x86_64"]
   environment_variables = {
     PORT        = 8080
     DB_HOST     = "localhost"
@@ -27,11 +27,12 @@ module "lambda_function_container_image" {
 
   attach_network_policy = true
 
-	cloudwatch_logs_retention_in_days = 7
+  cloudwatch_logs_retention_in_days = 7
 
+  publish = true
   allowed_triggers = {
     AllowExecutionFromAPIGateway = {
-      service    = "${var.project_name}-apigateway"
+      service    = "apigateway"
       source_arn = "${module.api_gateway.api_execution_arn}/*/*"
     }
   }
@@ -39,17 +40,18 @@ module "lambda_function_container_image" {
 
 
 resource "null_resource" "build_and_push" {
-	depends_on = [ module.ecr ]
-	triggers = {
+  depends_on = [module.ecr]
+  triggers = {
     # only rerun if the ecr repo changes.
-    ecr_repo = module.ecr.repository_arn
+    ecr_repo_url = module.ecr.repository_url
   }
   provisioner "local-exec" {
-    command = <<EOF
-      aws ecr get-login-password --region ${var.default_region} | docker login --username AWS --password-stdin ${module.ecr.repository_url}
-      docker build -t blank.Dockerfile .
-      docker tag blank:latest ${module.ecr.repository_url}:latest
-      docker push ${module.ecr.repository_url}:latest
+    interpreter = ["/bin/bash", "-c"]
+    command     = <<EOF
+			set -e
+
+			echo "Logging in to ECR..."
+			aws ecr get-login-password --region ${var.default_region} | docker login --username AWS --password-stdin ${self.triggers.ecr_repo_url} && docker build -t mylambda . && docker tag "mylambda:latest" "${self.triggers.ecr_repo_url}:latest" && docker push ${self.triggers.ecr_repo_url}:latest && echo "complete"
     EOF
   }
 }
@@ -77,11 +79,8 @@ module "ecr" {
     ]
   })
 
-  registry_scan_rules = [{
-    scan_frequency = "SCAN_ON_PUSH",
-		filter: []
-  }]
-
+  repository_force_delete       = true # should be disabled for production env
+  repository_image_scan_on_push = true
 
   tags = local.tags
 }
