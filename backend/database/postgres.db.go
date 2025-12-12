@@ -1,56 +1,73 @@
 package database
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 	"log"
 	"os"
 	"time"
 	"url-shortening-service/utils"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
+type DBCredential struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 func connectToPostgresDB() *gorm.DB {
-	var host, username, password, dbName, port = GetPostgresDbParameters()
+	var host, dbName, port = GetPostgresDbCredentials()
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
 			SlowThreshold:             time.Second, // Slow SQL threshold
-			LogLevel:                  logger.Warn, // Log level
+			LogLevel:                  logger.Silent, // Log level
 			IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
 			ParameterizedQueries:      true,
 			Colorful:                  true, // Disable color
 		},
 	)
-	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s sslmode=disable",
+
+	credential := getAwsDbSecret()
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s sslmode=prefer",
 		host,
-		username,
-		password,
+		credential.Username,
+		credential.Password,
 		port,
 	)
 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: newLogger})
 
 	if err != nil {
+		log.Println(err.Error())
 		log.Fatal("failed to connect database server\n")
 	}
 
 	_ = database.Exec(fmt.Sprintf("CREATE DATABASE %s;", dbName))
-	dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+
+	dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=prefer",
 		host,
-		username,
-		password,
+		credential.Username,
+		credential.Password,
 		dbName,
 		port,
 	)
 	dbInstance, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
+		log.Println(err.Error())
 		log.Fatal("failed to connect database\n")
 	}
 	return dbInstance
 }
 
-func GetPostgresDbParameters() (host, username, password, dbName, port string) {
+func GetPostgresDbCredentials() (host, dbName, port string) {
 	exist := true
 	var envVariables = utils.GetEnvVars()
 	host, exist = envVariables["DB_HOST"]
@@ -61,18 +78,43 @@ func GetPostgresDbParameters() (host, username, password, dbName, port string) {
 	if !exist {
 		log.Fatal("DB_NAME not in .env")
 	}
-	username, exist = envVariables["DB_USERNAME"]
-	if !exist {
-		log.Fatal("DB_USERNAME not in .env")
-	}
-	password, exist = envVariables["DB_PASSWORD"]
-	if !exist {
-		log.Fatal("DB_PASSWORD not in .env")
-	}
 	port, exist = envVariables["DB_PORT"]
 	if !exist {
 		log.Fatal("DB_PORT not in .env")
 	}
 	return
+}
 
+func getAwsDbSecret() (dBCredential DBCredential) {
+	var envVariables = utils.GetEnvVars()
+	secretName := envVariables["DB_CREDENTIAL_SECRET"]
+	region := envVariables["AWS_REGION"]
+
+	config, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(region))
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	// Create Secrets Manager client
+	svc := secretsmanager.NewFromConfig(config)
+
+	input := &secretsmanager.GetSecretValueInput{
+		SecretId: aws.String(secretName),
+	}
+
+	result, err := svc.GetSecretValue(context.Background(), input)
+	if err != nil {
+		// For a list of exceptions thrown, see
+		// https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+		log.Fatal(err.Error())
+	}
+
+	// Decrypts secret using the associated KMS key.
+	var secretString string = *result.SecretString
+
+	err = json.Unmarshal([]byte(secretString), &dBCredential)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	return
 }

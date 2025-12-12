@@ -4,7 +4,7 @@
 GET {{BaseUrl}}/shorten/
 
 ###
-GET {{BaseUrl}}/shorten/2d003
+GET {{BaseUrl}}/shorten/03f27
 
 ###
 GET {{BaseUrl}}/shorten/2d003/stats
@@ -16,7 +16,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-	"url": "http://google12.com"
+	"url": "http://google1.com"
 }
 
 ###

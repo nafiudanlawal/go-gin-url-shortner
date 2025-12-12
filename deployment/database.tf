@@ -12,18 +12,17 @@ module "cluster" {
   engine_version         = data.aws_rds_engine_version.postgresql.version
   cluster_instance_class = var.cluster_instance_class
 
-  master_username = var.db_master_username
+  master_username                         = var.db_master_username
   master_user_password_rotate_immediately = true
-  master_password_wo = var.db_master_password
-  
+  master_password_wo                      = var.db_master_password
+
   skip_final_snapshot = true
-  
+
   instances = {
     one = {
-		
-	}
+      publicly_accessible = true
+    }
   }
-
   vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.database_subnet_group_name
   availability_zones   = module.vpc.azs
