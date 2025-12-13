@@ -2,11 +2,13 @@ package server
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"time"
 	"url-shortening-service/routes"
 	"url-shortening-service/utils"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Run() {
@@ -44,14 +46,15 @@ func Run() {
 			"code": code,
 		})
 	})
-
+	port := utils.GetEnv("PORT")
 	s := &http.Server{
-		Addr:           fmt.Sprintf("127.0.0.1:%s", utils.GetEnvVars()["PORT"]),
+		Addr:           fmt.Sprintf("127.0.0.1:%s", port),
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
+	log.Printf("Server running on port: %s\n", port)
 	s.ListenAndServe()
 
 }

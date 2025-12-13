@@ -27,10 +27,18 @@ WORKDIR /
 
 # Copy our static executable.
 COPY --from=builder /go/main /go/main
-COPY public /go/public
+COPY static /go/static
 
 ENV PORT=8090
 ENV GIN_MODE=release
+
+ENV DB_HOST=database-dev-test.cluster-ckbauu0sa7cs.us-east-1.rds.amazonaws.com
+ENV DB_NAME=url_shortner
+ENV DB_PORT=5432
+ENV AWS_REGION=us-east-1
+ENV ENV=PROD
+ENV DB_CREDENTIAL_SECRET=secret
+
 EXPOSE 8080
 
 WORKDIR /go

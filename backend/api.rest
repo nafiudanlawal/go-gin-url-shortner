@@ -4,10 +4,10 @@
 GET {{BaseUrl}}/shorten/
 
 ###
-GET {{BaseUrl}}/shorten/03f27
+GET {{BaseUrl}}/shorten/7819e
 
 ###
-GET {{BaseUrl}}/shorten/2d003/stats
+GET {{BaseUrl}}/shorten/7819e/stats
 
 
 ###
@@ -16,7 +16,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-	"url": "http://google1.com"
+	"url": "http://google13.com"
 }
 
 ###

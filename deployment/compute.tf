@@ -15,11 +15,13 @@ module "lambda_function_container_image" {
 
   architectures = ["x86_64"]
   environment_variables = {
-    PORT        = 8080
-    DB_HOST     = "localhost"
-    DB_NAME     = "url_shortner"
-    DB_USERNAME = "postgres"
-    DB_PORT     = 5432
+    PORT                 = 8080
+    DB_HOST              = "database-dev-test.cluster-ckbauu0sa7cs.us-east-1.rds.amazonaws.com"
+    DB_NAME              = "url_shortner"
+    DB_USERNAME          = "postgres"
+    DB_CREDENTIAL_SECRET = "rds!cluster-2fabacd5-267b-4089-8d07-d1575f659783"
+    DB_PORT              = 5432
+
   }
 
   vpc_subnet_ids         = module.vpc.private_subnets

@@ -4,17 +4,16 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
-	"os"
-	"time"
-	"url-shortening-service/utils"
-
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
+	"os"
+	"time"
+	"url-shortening-service/utils"
 )
 
 type DBCredential struct {
@@ -27,16 +26,14 @@ func connectToPostgresDB() *gorm.DB {
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
-			SlowThreshold:             time.Second, // Slow SQL threshold
+			SlowThreshold:             time.Second,   // Slow SQL threshold
 			LogLevel:                  logger.Silent, // Log level
-			IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
+			IgnoreRecordNotFoundError: true,          // Ignore ErrRecordNotFound error for logger
 			ParameterizedQueries:      true,
 			Colorful:                  true, // Disable color
 		},
 	)
-
 	credential := getAwsDbSecret()
-
 	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s sslmode=prefer",
 		host,
 		credential.Username,
@@ -68,27 +65,15 @@ func connectToPostgresDB() *gorm.DB {
 }
 
 func GetPostgresDbCredentials() (host, dbName, port string) {
-	exist := true
-	var envVariables = utils.GetEnvVars()
-	host, exist = envVariables["DB_HOST"]
-	if !exist {
-		log.Fatal("DB_HOST not in .env")
-	}
-	dbName, exist = envVariables["DB_NAME"]
-	if !exist {
-		log.Fatal("DB_NAME not in .env")
-	}
-	port, exist = envVariables["DB_PORT"]
-	if !exist {
-		log.Fatal("DB_PORT not in .env")
-	}
+	host = utils.GetEnv("DB_HOST")
+	dbName = utils.GetEnv("DB_NAME")
+	port = utils.GetEnv("DB_PORT")
 	return
 }
 
 func getAwsDbSecret() (dBCredential DBCredential) {
-	var envVariables = utils.GetEnvVars()
-	secretName := envVariables["DB_CREDENTIAL_SECRET"]
-	region := envVariables["AWS_REGION"]
+	region := utils.GetEnv("AWS_REGION")
+	secretName := utils.GetEnv("DB_CREDENTIAL_SECRET")
 
 	config, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(region))
 	if err != nil {

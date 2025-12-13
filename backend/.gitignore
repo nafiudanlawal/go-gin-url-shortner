@@ -8,6 +8,8 @@
 *.so
 *.dylib
 
+# for bash build output
+url-shortening-service 
 # Test binary, built with `go test -c`
 *.test
 
