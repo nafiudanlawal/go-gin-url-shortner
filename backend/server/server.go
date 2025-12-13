@@ -48,7 +48,7 @@ func Run() {
 	})
 	port := utils.GetEnv("PORT")
 	s := &http.Server{
-		Addr:           fmt.Sprintf("127.0.0.1:%s", port),
+		Addr:           fmt.Sprintf("0.0.0.0:%s", port),
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
