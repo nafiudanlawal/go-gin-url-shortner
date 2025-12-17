@@ -32,11 +32,12 @@ COPY static /go/static
 ENV PORT=8080
 ENV GIN_MODE=release
 
-ENV DB_HOST=database-name.cluster-xxxxxx.region.rds.amazonaws.com
+ENV DB_HOST=database-dev-test.cluster-ckbauu0sa7cs.us-east-1.rds.amazonaws.com
 ENV DB_NAME=url_shortner
 ENV DB_PORT=5432
-ENV AWS_REGION=region
-ENV ENV=PROD
+ENV AWS_REGION=us-east-1
+#ENV _LAMBDA_SERVER_PORT=8080
+#ENV AWS_LAMBDA_RUNTIME_API=provided.al2023
 
 
 EXPOSE 8080
