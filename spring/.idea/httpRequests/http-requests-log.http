@@ -1,0 +1,509 @@
+GET http://localhost:8080/shorten/646d5/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T033302.200.json
+
+###
+
+GET http://localhost:8080/shorten/646d5
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T033255.200.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T033245.200.json
+
+###
+
+PUT http://localhost:8080/shorten/d4a0a
+Content-Type: application/json
+Content-Length: 31
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url":  "https:/update12.com"}
+
+<> 2025-12-17T033241.404.json
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T033234.404.json
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+PUT http://localhost:8080/shorten/d4a0a
+Content-Type: application/json
+Content-Length: 31
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url":  "https:/update12.com"}
+
+<> 2025-12-17T032754.404.json
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032646.500.json
+
+###
+
+PUT http://localhost:8080/shorten/d4a0a
+Content-Type: application/json
+Content-Length: 31
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url":  "https:/update12.com"}
+
+<> 2025-12-17T032641.200.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032631.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032627.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032623.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032622.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032617.200.json
+
+###
+
+POST http://localhost:8080/shorten/
+Content-Type: application/json
+Accept: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url": "http://test152x.com"}
+
+<> 2025-12-17T032602.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032101.200.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032049.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032042.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T032009.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T031432.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T031351.200.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T031344.200.json
+
+###
+
+PUT http://localhost:8080/shorten/d4a0a
+Content-Type: application/json
+Content-Length: 31
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url":  "https:/update12.com"}
+
+<> 2025-12-17T031339.200.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T031324.200.json
+
+###
+
+PUT http://localhost:8080/shorten/d4a0a
+Content-Type: application/json
+Content-Length: 29
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url":  "https:/update.com"}
+
+<> 2025-12-17T030123.200.json
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T030047.500.json
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T024615.500.json
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T024307.500.json
+
+###
+
+DELETE http://localhost:8080/shorten/d4a0a
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T024158.500.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T024127.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T023942.200.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T023928.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe/stats
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011908.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011854.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011604.200.json
+
+###
+
+POST http://localhost:8080/shorten/
+Content-Type: application/json
+Accept: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url": "http://test152x.com"}
+
+<> 2025-12-17T011557.500.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011107.200.json
+
+###
+
+POST http://localhost:8080/shorten/
+Content-Type: application/json
+Accept: application/json
+Content-Length: 30
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url": "http://test152x.com"}
+
+<> 2025-12-17T011100.200.json
+
+###
+
+GET http://localhost:8080/shorten/
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011044.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011035.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011029.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T011008.200.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T010452.500.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T010212.500.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T005906.500.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T005904.500.json
+
+###
+
+GET http://localhost:8080/shorten/c8cfe
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2025-12-17T005738.500.json
+
+###
+

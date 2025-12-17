@@ -6,9 +6,16 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 @Service
 public class ShortUrlService {
+    private final ShortUrlRepository shortUrlRepository;
+
+    public ShortUrlService(ShortUrlRepository shortUrlRepository) {
+        this.shortUrlRepository = shortUrlRepository;
+    }
+
     ShortUrl createShortUrl(String url) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
@@ -29,5 +36,17 @@ public class ShortUrlService {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    ShortUrl updateShortUrl(String code, String url) {
+        var rx = shortUrlRepository.findByShortCode(code);
+        if (rx.isEmpty()) {
+            throw new NoSuchElementException("Shortcode:" + code + " not found");
+        }
+        ShortUrl shortUrl = rx.get();
+        shortUrl.setUrl(url);
+        shortUrl.setUpdatedAt(new Date());
+        shortUrlRepository.save(shortUrl);
+        return shortUrl;
     }
 }
