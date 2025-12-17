@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="python-function">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/deployment/.terraform/modules/lambda_function_container_image/examples/fixtures/python-function.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
