@@ -1,3 +1,17 @@
+POST http://localhost:8080/shorten/
+Content-Type: application/json
+Accept: application/json
+Content-Length: 31
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{"url": "http://test1523x.com"}
+
+<> 2025-12-17T171232.201.json
+
+###
+
 GET http://localhost:8080/shorten/646d5/stats
 Accept: application/json
 Connection: Keep-Alive
@@ -494,16 +508,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2025-12-17T005904.500.json
-
-###
-
-GET http://localhost:8080/shorten/c8cfe
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2025-12-17T005738.500.json
 
 ###
 

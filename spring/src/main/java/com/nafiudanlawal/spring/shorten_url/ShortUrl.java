@@ -57,15 +57,18 @@ public class ShortUrl {
         return id;
     }
 
+    /**
+     * @param id Integer
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUrl() {
+    public @NotNull String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(@NotNull String url) {
         this.url = url;
     }
 
