@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>URL Shortner</title>
+    <link rel="stylesheet" th:href="@{/index.css}">
+    <link rel="icon" th:href="@{/favicon.ico}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900">
+<div id="root" class="font-mono">
+    <main class="pt-20">
+        <div class='*:border-sky-200 **:dark:border-sky-100 rounded-2xl'>
+            <section class='border rounded-2xl bg-sky-700 dark:bg-sky-900 text-gray-50'>
+                <div class='min-h-50'>
+                    <div class='bg-sky-500 dark:bg-gray-900 px-5 py-2 text-gray-50 dark:text-sky-100 rounded-t-2xl'>
+                        <h3 class='text-center text-3xl uppercase font-normal tracking-widest'>Generate a short Url</h3>
+                    </div>
+                    <div class='px-15 py-10'>
+                        <div id="formContainer">
+                            <form id="urlForm">
+                                <div class='flex place-content-around mb-3'>
+                                    <label
+                                            for='urlInput'
+                                            class='text-xl underline underline-offset-8 tracking-wider'
+                                    >Enter Long URL</label>
+                                </div>
+                                <div>
+                                    <input
+                                            id='urlInput'
+                                            class='border rounded-xl w-74 px-2 h-8'
+                                            name='url'
+                                            value=""
+                                            onkeyup="handleInputKeyup()"
+                                            placeholder='url eg: google.com'
+                                            required
+                                    />
+                                    <p id="errorText" class='text-yellow-100 text-sm text-center pt-2 hidden'>Error message
+                                        goes here</p>
+                                </div>
+                                <div class='flex place-content-around py-3'>
+                                    <button
+                                            id="submitBtn"
+                                            type='submit'
+                                            class='dark:bg-gray-900 border bg-sky-600 hover:bg-sky-500 hover:cursor-pointer px-5 uppercase py-1 rounded-2xl text-gray-50'
+                                    >
+                                        Generate URL
+                                    </button>
+                                </div>
+                            </form>
+                            <div>
+                            <span class='text-gray-100 underline underline-offset-8 mb-2'>
+                            Example of urls accepted
+                                <button
+                                        class='hover:cursor-pointer border rounded-full px-2'
+                                        href='#'
+                                        onclick="handleShowExamplesToggle()"
+                                > + </button>
+                            </span>
+                                <div id="examplesDiv" class="hidden">
+                                    <ul class='dark:text-red-100 light:text-gray-800'>
+                                        <li>192.168.0.5:8000</li>
+                                        <li>192.168.0.5</li>
+                                        <li>http://google.com</li>
+                                        <li>https://google.com</li>
+                                        <li>https://subdomain.google.com</li>
+                                    </ul>
+                                    <p>Only support http and https links</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="showCode" class="hidden">
+                            <fieldset class="border p-2 rounded-lg">
+                                <a class="text-yellow-200 text-2xl hover:underline" id="showCodeUrl" href="http://localhost:8080/12edd">http://localhost:8080/12edd</a>
+                                <button class="hover:cursor-pointer" onclick="copyLinkToClipBoard()"><img class="w-5 h-5 text-gray-50" th:src="@{/copy-icon.svg}"></button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+<script th:src="@{/index.js}"></script>
+</body>
+</html>

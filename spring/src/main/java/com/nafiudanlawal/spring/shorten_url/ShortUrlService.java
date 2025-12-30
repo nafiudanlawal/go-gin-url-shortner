@@ -1,16 +1,16 @@
 package com.nafiudanlawal.spring.shorten_url;
 
 import com.nafiudanlawal.spring.shorten_url.dto.AccessLogResponseDto;
+import com.nafiudanlawal.spring.shorten_url.dto.CreateShortUrlDto;
 import com.nafiudanlawal.spring.shorten_url.dto.ShortUrlResponseDto;
+import com.nafiudanlawal.spring.shorten_url.utils.CommonUtil;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 public class ShortUrlService {
@@ -18,7 +18,11 @@ public class ShortUrlService {
     private final ShortUrlMapper shortUrlMapper;
     private final AccessLogMapper accessLogMapper;
 
-    public ShortUrlService(ShortUrlRepository shortUrlRepository, ShortUrlMapper shortUrlMapper, AccessLogMapper accessLogMapper) {
+    public ShortUrlService(
+            ShortUrlRepository shortUrlRepository,
+            ShortUrlMapper shortUrlMapper,
+            AccessLogMapper accessLogMapper
+    ) {
         this.shortUrlRepository = shortUrlRepository;
         this.shortUrlMapper = shortUrlMapper;
         this.accessLogMapper = accessLogMapper;
@@ -29,31 +33,15 @@ public class ShortUrlService {
         return this.shortUrlRepository
                 .findAll()
                 .stream()
-                .map(shortUrlMapper::shortUrlResponseDtoFromShortUrl)
-                .collect(Collectors.toList());
+                .map(shortUrlMapper::responseDtoFromShortUrl)
+                .toList();
     }
 
-    ShortUrlResponseDto createShortUrl(String url) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            byte[] messageDigest = md.digest(url.getBytes());
-
-            BigInteger no = new BigInteger(1, messageDigest);
-            String hashText = no.toString(16);
-
-            // pick random substring
-            int start = (int) Math.round(Math.random() * 10);
-            String code = hashText.substring(start, start + 5);
-            ShortUrl shortUrl = new ShortUrl();
-            shortUrl.setUrl(url);
-            shortUrl.setShortCode(code);
-            shortUrl.setCreatedAt(new Date());
-            shortUrl.setUpdatedAt(new Date());
-            shortUrlRepository.save(shortUrl);
-            return shortUrlMapper.shortUrlResponseDtoFromShortUrl(shortUrl);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+    ShortUrlResponseDto createShortUrl(@NotNull CreateShortUrlDto dto) {
+        String code = CommonUtil.generateCode(dto.url());
+        ShortUrl shortUrl = new ShortUrl(dto.url(), code);
+        shortUrlRepository.save(shortUrl);
+        return shortUrlMapper.responseDtoFromShortUrl(shortUrl);
     }
 
     ShortUrlResponseDto updateShortUrl(String code, String url) {
@@ -65,7 +53,7 @@ public class ShortUrlService {
         shortUrl.setUrl(url);
         shortUrl.setUpdatedAt(new Date());
         shortUrlRepository.save(shortUrl);
-        return shortUrlMapper.shortUrlResponseDtoFromShortUrl(shortUrl);
+        return shortUrlMapper.responseDtoFromShortUrl(shortUrl);
     }
 
 
@@ -85,10 +73,10 @@ public class ShortUrlService {
 
         shortUrl.getStats().add(accessLog);
         shortUrlRepository.save(shortUrl);
-        return shortUrlMapper.shortUrlResponseDtoFromShortUrl(shortUrl);
+        return shortUrlMapper.responseDtoFromShortUrl(shortUrl);
     }
 
-    AccessLogResponseDto getShortUrlStatsByCode(String code){
+    AccessLogResponseDto getShortUrlStatsByCode(String code) {
         var rx = this.shortUrlRepository.findByShortCode(code);
         if (rx.isEmpty()) {
             throw new NoSuchElementException("Shortcode:%s not found".formatted(code));
@@ -97,7 +85,7 @@ public class ShortUrlService {
         return this.accessLogMapper.accessLogResponseDtoFromShortUrl(shortUrl);
     }
 
-    void deleteShortUrlByCode(String code){
+    void deleteShortUrlByCode(String code) {
         var rx = this.shortUrlRepository.findByShortCode(code);
         if (rx.isEmpty()) {
             throw new NoSuchElementException("Shortcode:%s not found".formatted(code));

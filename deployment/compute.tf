@@ -7,13 +7,13 @@ module "lambda_function_container_image" {
   description   = "ecr lambda handler"
 
   create_package = false
-
-  image_uri    = "${module.ecr.repository_url}:latest"
-  package_type = "Image"
+  source_path = "../spring/target/spring-0.0.1-SNAPSHOT.jar"
+  package_type = "Zip"
 
   memory_size = 128
 
   architectures = ["x86_64"]
+  runtime = "java21"
   environment_variables = {
     PORT                 = 8080
     DB_HOST              = "database-dev-test.cluster-ckbauu0sa7cs.us-east-1.rds.amazonaws.com"
@@ -41,48 +41,7 @@ module "lambda_function_container_image" {
 }
 
 
-resource "null_resource" "build_and_push" {
-  depends_on = [module.ecr]
-  triggers = {
-    # only rerun if the ecr repo changes.
-    ecr_repo_url = module.ecr.repository_url
-  }
-  provisioner "local-exec" {
-    interpreter = ["/bin/bash", "-c"]
-    command     = <<EOF
-			set -e
-
-			echo "Logging in to ECR..."
-			aws ecr get-login-password --region ${var.default_region} | docker login --username AWS --password-stdin ${self.triggers.ecr_repo_url} && docker build -t mylambda . && docker tag "mylambda:latest" "${self.triggers.ecr_repo_url}:latest" && docker push ${self.triggers.ecr_repo_url}:latest && echo "complete"
-    EOF
-  }
+module "s3" {
+  
 }
 
-module "ecr" {
-  source = "terraform-aws-modules/ecr/aws"
-
-  repository_name = "${var.project_name}-repo"
-
-  repository_lifecycle_policy = jsonencode({
-    rules = [
-      {
-        rulePriority = 1,
-        description  = "Keep last 20 images",
-        selection = {
-          tagStatus     = "tagged",
-          tagPrefixList = ["v"],
-          countType     = "imageCountMoreThan",
-          countNumber   = 20
-        },
-        action = {
-          type = "expire"
-        }
-      }
-    ]
-  })
-
-  repository_force_delete       = true # should be disabled for production env
-  repository_image_scan_on_push = true
-
-  tags = local.tags
-}

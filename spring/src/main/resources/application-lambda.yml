@@ -1,20 +1,21 @@
+profile: lambda
 spring:
   application:
-    name: spring
-
+    name: url-shortner
   datasource:
-    url: jdbc:postgresql://localhost:5432/url_shortner
-    username: postgres
-    password: admin
+    url: "jdbc-secretsmanager:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}"
+    username: "${RDS_SECRET_NAME}"
+    driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: off
-    open-in-view: true
     properties:
       hibernate:
         format_sql: true
     database: postgresql
+server:
+  port: ${PORT}
 logging:
   level:
     org:

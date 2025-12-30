@@ -1,0 +1,8 @@
+###
+POST {{site}}/shorten
+Content-Type: application/json
+
+{ "url": "https://utwentecareers.nl/en/vacancies/2102/engd-position-in-it-architecture-for-fmaas/"}
+
+###
+DELETE {{site}}/shorten

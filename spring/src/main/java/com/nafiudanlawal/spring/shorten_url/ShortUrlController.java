@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/shorten")
+@CrossOrigin
 public class ShortUrlController {
 
     private final ShortUrlService shortUrlService;
@@ -22,34 +23,34 @@ public class ShortUrlController {
         this.shortUrlService = shortUrlService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<ShortUrlResponseDto> getAll() {
         return this.shortUrlService.getAllShortUrls();
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ShortUrlResponseDto create(@Valid @RequestBody CreateShortUrlDto shortUrlData) {
-        return  this.shortUrlService.createShortUrl(shortUrlData.url());
+    public ShortUrlResponseDto create(@Valid @RequestBody CreateShortUrlDto dto) {
+        return  this.shortUrlService.createShortUrl(dto);
     }
 
-    @PutMapping("/{code}")
+    @PutMapping("{code}")
     public ShortUrlResponseDto update(@Valid @RequestBody UpdateShortUrlDto shortUrlData, @PathVariable("code") String code) {
         return shortUrlService.updateShortUrl(code, shortUrlData.url());
     }
 
-    @GetMapping("/{code}")
+    @GetMapping("{code}")
     @Transactional
     public ShortUrlResponseDto getOne(@PathVariable("code") String code, @RequestHeader(HttpHeaders.HOST) String host) {
         return this.shortUrlService.getShortUrlByCode(code, host);
     }
 
-    @GetMapping("/{code}/stats")
+    @GetMapping("{code}/stats")
     public AccessLogResponseDto getStat(@PathVariable("code") String code) {
        return this.shortUrlService.getShortUrlStatsByCode(code);
     }
 
-    @DeleteMapping("/{code}")
+    @DeleteMapping("{code}")
     @Transactional
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOne(@PathVariable("code") String code) {

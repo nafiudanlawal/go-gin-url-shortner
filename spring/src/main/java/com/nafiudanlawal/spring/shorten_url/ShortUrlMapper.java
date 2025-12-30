@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ShortUrlMapper {
-    public ShortUrlResponseDto shortUrlResponseDtoFromShortUrl(ShortUrl shortUrl){
+    public ShortUrlResponseDto responseDtoFromShortUrl(ShortUrl shortUrl){
+        if(shortUrl == null){
+            throw new NullPointerException("shortUrl must not be null");
+        }
         return new ShortUrlResponseDto(
                 shortUrl.getId(),
                 shortUrl.getShortCode(),

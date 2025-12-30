@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" th:href="@{/favicon.ico}">
+    <title>URL Shortner</title>
+    <link rel="stylesheet" th:href="@{/index.css}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900">
+<div id="root" class="font-mono">
+    <main class="pt-20">
+        <div class='*:border-sky-200 **:dark:border-sky-100 rounded-2xl'>
+            <section class='border rounded-2xl bg-sky-700 dark:bg-sky-900 text-gray-50'>
+                <div class='min-h-50'>
+                    <div class='bg-sky-500 dark:bg-gray-900 px-5 py-2 text-gray-50 dark:text-sky-100 rounded-t-2xl'>
+                        <h3 class='text-center text-3xl uppercase font-normal tracking-widest'>Generate a short Url</h3>
+                    </div>
+                    <div class='px-15 py-10'>
+                        <div id="showCode" class="hidden">
+                            <fieldset class="border p-2 rounded-lg">
+                                <a class="text-yellow-200 text-2xl hover:underline" id="showCodeUrl" href='http://localhost:8080/th:text="${code}"'>http://localhost:8080/th:text="${code}"</a>
+                                <button class="hover:cursor-pointer" onclick="copyLinkToClipBoard()"><img class="w-5 h-5 text-gray-50" th:src="@{/copy-icon.svg}"></button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+<script th:src="@{/index.js}"></script>
+</body>
+</html>
