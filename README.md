@@ -1,17 +1,31 @@
-# Go Implementation of Url Shortner
+# Url Shortner
+Implemented with spring web
 
 # Requirements
-- Go
-- AWS
-- Terraform
-- Command Line
-- Docker
+- Java 17
+- *Docker - optional*
 
 
-# Backend
-Resources [link](./backend/README.md)
+## Run Application
+### Docker
+Build image
+```bash
+docker build -t url-shortner-service .  
+```
+Run service
+```bash
+docker compose up
+```
 
-# Deployment
-Resources [link](./deployment/README.md)
+## API
+| Method 	| Endpoint 					|
+| -------- 	| -------- 					|
+| GET   	| /shorten/                  
+| POST 		|/shorten/                 	|
+| GET   	|/shorten/:shortCode       	|
+| GET    	|/shorten/:shortCode/stats 	|
+| PUT    	|/shorten/:shortCode       	|
+| DELETE 	|/shorten/:shortCode       	|
+| GET    	|/:{shortCode}				|
 
 

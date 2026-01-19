@@ -1,0 +1,36 @@
+services:
+  database:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: url_shortner
+    healthcheck:
+      # pg_isready checks if the server is ready for connections
+      test: ["CMD-SHELL", "pg_isready -U postgres -d url_shortner -h 127.0.0.1"]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  url-shortner-service:
+    image: url-shortner-service:latest
+    depends_on:
+      database:
+          condition: service_healthy
+    environment:
+      PORT: 8080
+      DB_HOST: database
+      DB_USER: postgres
+      DB_PASSWORD: admin
+      DB_NAME: url_shortner
+      DB_PORT: 5432
+      GIN_MODE: release # change to debug for debugging
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_data:

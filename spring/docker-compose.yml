@@ -1,0 +1,25 @@
+services:
+  database:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: url_shortner
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data_spring:/var/lib/postgresql/data
+  url-shortner-service:
+    image: url-shortner-service:latest
+    depends_on:
+      - database
+    environment:
+      DB_URL: jdbc:postgresql://database:5432/url_shortner
+      DB_USER: postgres
+      DB_PASSWORD: admin
+      PORT: 8080
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_data_spring:
