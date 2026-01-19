@@ -1,15 +1,21 @@
 # Url Shortner
-Implementation of a url shortner 
+Implementation of a url shortner
+
+# Requirements
+- Java 17
+- *Docker - optional*
 
 
-## Implementations
-# Go Lang
-Reference 
-- [Golang Project](./backend/README.md)
-
-# Java Spring Boot
-Reference 
-- [Spring Boot Project](./deployment/README.md)
+## Run Application
+### Docker
+Build image
+```bash
+docker build -t url-shortner-service .  
+```
+Run service
+```bash
+docker compose up
+```
 
 ## API
 | Method 	| Endpoint 					|
@@ -21,3 +27,5 @@ Reference
 | PUT    	| /shorten/:shortCode       	|
 | DELETE 	| /shorten/:shortCode       	|
 | GET    	| /:{shortCode}				|
+
+
