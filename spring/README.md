@@ -19,13 +19,11 @@ docker compose up
 
 ## API
 | Method 	| Endpoint 					|
-| -------- 	| -------- 					|
-| GET   	| /shorten/                  
-| POST 		| /shorten/                 	|
-| GET   	| /shorten/:shortCode       	|
-| GET    	| /shorten/:shortCode/stats 	|
-| PUT    	| /shorten/:shortCode       	|
-| DELETE 	| /shorten/:shortCode       	|
+|-----------|---------------------------|
+| GET   	| /shorten/                 | 
+| POST 		| /shorten/                 |
+| GET   	| /shorten/:shortCode       |
+| GET    	| /shorten/:shortCode/stats |
+| PUT    	| /shorten/:shortCode       |
+| DELETE 	| /shorten/:shortCode       |
 | GET    	| /:{shortCode}				|
-
-
